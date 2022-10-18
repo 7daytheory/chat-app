@@ -49,6 +49,29 @@ code {
           color: #999; 
          }
       }
+      button {
+        background-color: red;
+        color: #FFF;
+        cursor: pointer;
+        border: none;
+        font-weight: bold;
+        padding: 10px;
+      }
+      label {
+        display: flex;
+        align-items: center;
+        color: #999;
+        font-size: 12px;
+        span {
+          margin-left: 15px;
+        }
+      }
+    }
+    p {
+      margin-top: 10px;
+      color: #999;
+      font-size: 12px;
+      text-align: center;
     }
     }
   }

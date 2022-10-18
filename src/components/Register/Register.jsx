@@ -1,4 +1,5 @@
 import React from 'react';
+import ContactMailOutlinedIcon from '@mui/icons-material/ContactMailOutlined';
 
 function Register() {
     return (
@@ -10,7 +11,11 @@ function Register() {
             <input type="text" name="username" placeholder="username"/>
             <input type="email" name="email" placeholder="Email"/>
             <input type="password" name="password" placeholder="password"/>
-            <input type="file" />
+            <input type="file" id="file" style={{display: "none"}}/>
+            <label for="file">
+                <ContactMailOutlinedIcon style={{cursor: "pointer"}}/>
+                <span>Add an avatar</span>
+            </label>
             <button>Sign up</button>
             </form>
             <p>Already have an account? Login</p>
