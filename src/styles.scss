@@ -76,3 +76,28 @@ code {
     }
     }
   }
+
+  .home {
+    background-color: red;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .container {
+      border: 1px solid #FFF;
+      border-radius: 10px;
+      width: 65vw;
+      height: 80vh;
+      display: flex;
+      overflow: hidden;
+
+      .sidebar{
+        flex: 1;
+        border-right: 1px solid #999;
+        background-color: #333;
+      }
+      .chat {
+        flex: 2
+      }
+    }
+  }
