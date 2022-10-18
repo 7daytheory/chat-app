@@ -1,10 +1,14 @@
 import React from 'react';
 import Navbar from '../Navbar/Navbar';
+import Search from '../Search/Search';
 
-export const Sidebar = () => {
+const Sidebar = () => {
   return (
     <div className="sidebar">
       <Navbar />
+      <Search />
     </div>
   )
 }
+
+export default Sidebar;

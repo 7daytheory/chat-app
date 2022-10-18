@@ -135,6 +135,45 @@ code {
             }
           }
         }
+        .search {
+          border-bottom: 1px solid #333;
+
+          .searchForm {
+              padding: 10px;
+            input {
+              background-color: transparent;
+              border: none;
+              color: #FFF;
+              outline: none;
+
+              &::placeholder {
+                color: #999;
+              }
+            }
+          }
+
+          .userChat{
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #FFF;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #444;
+              border-left: 5px solid #FFF;
+              transition-duration: 0.5s;
+            }
+
+            img{
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              border: 2px solid #fff;
+            }
+          }
+        }
       }
       .chat {
         flex: 2
