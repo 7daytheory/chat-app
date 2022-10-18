@@ -2,7 +2,14 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-    <div>Navbar</div>
+    <div className="navbar">
+      <span className="logo">Live-Chat</span>
+      <div className="user">
+        <img src="https://images.pexels.com/photos/10612297/pexels-photo-10612297.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Avatar"/>
+        <span>John Doe</span>
+        <button>Logout</button>
+      </div>
+    </div>
   )
 }
 
