@@ -153,12 +153,14 @@ code {
         }
 
           .userChat{
+            margin-top: 10px;
             padding: 10px;
             display: flex;
             align-items: center;
             gap: 10px;
             color: #FFF;
             cursor: pointer;
+
 
             &:hover {
               background-color: #444;
@@ -167,16 +169,45 @@ code {
             }
 
             img{
-              width: 40px;
-              height: 40px;
+              width: 30px;
+              height: 30px;
               border-radius: 50%;
               border: 2px solid #fff;
             }
+
+            .userChatInfo {
+            span {
+              font-size: 14px; font-weight: 500;
+            }
+
+            p{
+              color: #999; font-weight: 100; font-size: 12px;
+            }
+          }
           }
         }
       }
       .chat {
-        flex: 2
+        flex: 2;
+
+        .chatInfo {
+          height: 50px;
+          background-color: yellow;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 10px;
+
+          .chatIcons {
+            display: flex;
+            gap: 10px;
+          }
+
+          .icons {
+            height: 24px;
+            width: 24px;
+          }
+        }
       }
     }
 
