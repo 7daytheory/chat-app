@@ -192,11 +192,12 @@ code {
 
         .chatInfo {
           height: 50px;
-          background-color: yellow;
+          background-color: #555;
           display: flex;
           align-items: center;
           justify-content: space-between;
           padding: 10px;
+          color: #FFF;
 
           .chatIcons {
             display: flex;
@@ -206,7 +207,20 @@ code {
           .icons {
             height: 24px;
             width: 24px;
+            cursor: pointer;
           }
+        }
+
+        .messages {
+          background-color: #ddddf7;
+          padding: 10px;
+          height: calc(100% - 160px);
+        }
+
+        .input {
+          height: 50px;
+          background-color: #FFF;
+          padding: 10px;
         }
       }
     }

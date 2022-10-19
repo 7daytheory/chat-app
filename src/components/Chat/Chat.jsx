@@ -2,6 +2,8 @@ import React from 'react'
 import LinkedCameraOutlinedIcon from '@mui/icons-material/LinkedCameraOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import Messages from '../Messages/Messages';
+import Input from '../Input/Input';
 
 
 const Chat = () => {
@@ -15,6 +17,8 @@ const Chat = () => {
         <MoreHorizIcon class="icons" style={{color: "white"}}/>
         </div>
       </div>
+      <Messages />
+      <Input />
     </div>
   )
 }
