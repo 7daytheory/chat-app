@@ -1,34 +1,61 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ContactMailOutlinedIcon from '@mui/icons-material/ContactMailOutlined';
-import {createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../../firebase';
+import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, storage, db} from '../../firebase';
+import {ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore"; 
 
 function Register() {
-    const handleSubmit = (e) => {   
+    const [ error, setError ] = useState(false);
+    const handleSubmit = async (e) => {   
         e.preventDefault();
         
+        //Instead of useState you can get the values like this
         const username = e.target[0].value;
         const email = e.target[1].value;
         const password = e.target[2].value;
-
         const file = e.target[3].files[0];
 
-        console.log(username, email, password);
+        try{
+        const res = await createUserWithEmailAndPassword(auth, email, password)
 
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            
-            console.log(user);
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            
-            console.log(errorCode + " : " + errorMessage);
-        });
+        const storageRef = ref(storage, username + "avatar");
+
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+uploadTask.on('state_changed', 
+  (snapshot) => {
+    setError(false);
+  
+  }, 
+  (error) => {
+    setError(true);
+  }, 
+  () => {
+    getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+      await updateProfile(res.user, {
+        username,
+        photoURL: downloadURL
+      })
+      //Uploads user info to firebase db - different users
+      await setDoc(doc(db, "users", res.user.uid), {
+        uid: res.user.uid,
+        username,
+        email,
+        photoURL: downloadURL
+      });
+
+      //Uploads chat info to firebase db - different chats
+      await setDoc(doc('db', "userChats", res.user.uid), {
+        //Upload user chats(empty for now)
+      })
+    })
     }
+    ); 
+} catch(err) {
+    setError(true);
+    }
+}
 
     return (
     <div className="formContainer">
@@ -45,6 +72,7 @@ function Register() {
                 <span>Add an avatar</span>
             </label>
             <button>Sign up</button>
+            {error && <span style={{fontSize: '12px', textAlign: 'center', color: 'red'}}>Something went wrong - Please try again.</span>}
             </form>
             <p>Already have an account? Login</p>
         </div>
