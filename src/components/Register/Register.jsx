@@ -7,6 +7,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 function Register() {
     const [ error, setError ] = useState(false);
+    const [ success, setSuccess ] = useState(false);
     const handleSubmit = async (e) => {   
         e.preventDefault();
         
@@ -26,10 +27,14 @@ function Register() {
 uploadTask.on('state_changed', 
   (snapshot) => {
     setError(false);
-  
+    setSuccess(true);
+    e.target.value[0] = '';
+    e.target.value[1] = '';
+    e.target.value[2] = '';
   }, 
   (error) => {
     setError(true);
+    setSuccess(false);
   }, 
   () => {
     getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
@@ -54,6 +59,7 @@ uploadTask.on('state_changed',
     ); 
 } catch(err) {
     setError(true);
+    setSuccess(false);
     }
 }
 
@@ -61,6 +67,7 @@ uploadTask.on('state_changed',
     <div className="formContainer">
         <div className="formWrapper">
             <h1 className="logo">Live-Chat App</h1>
+            {success && <h2 style={{fontSize: '14px', textAlign: 'center', color: 'green', fontWeight: '500'}}>Account successfully created.</h2>}
             <span className="title">Register</span>
             <form onSubmit={handleSubmit}>
             <input type="text" name="username" placeholder="username"/>
