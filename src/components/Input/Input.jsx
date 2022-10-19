@@ -8,10 +8,10 @@ const Input = () => {
     <div className="input">
       <input type="text" placeholder="Say Something..." />
       <div className="send">
-        <AttachFileIcon class="input-icon" />
+        <AttachFileIcon className="input-icon" />
         <input type="file" style={{display: 'none'}} id="file" />
         <label htmlFor="file">
-          <AddPhotoAlternateIcon class="input-icon" />
+          <AddPhotoAlternateIcon className="input-icon" />
         </label>
         <button>Send</button>
       </div>

@@ -12,9 +12,9 @@ const Chat = () => {
       <div className="chatInfo">
         <span>Stacey</span>
         <div className="chatIcons">
-        <LinkedCameraOutlinedIcon class="icons" style={{color: "white"}}/>
-        <AddIcon class="icons" style={{color: "white"}}/>
-        <MoreHorizIcon class="icons" style={{color: "white"}}/>
+        <LinkedCameraOutlinedIcon className="icons"/>
+        <AddIcon className="icons"/>
+        <MoreHorizIcon className="icons"/>
         </div>
       </div>
       <Messages />
