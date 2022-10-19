@@ -215,6 +215,57 @@ code {
           background-color: #ddddf7;
           padding: 10px;
           height: calc(100% - 160px);
+          overflow-y: scroll;
+
+          .message {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 12px;
+
+            .messageInfo {
+              display: flex;
+              flex-direction: column;
+              margin-bottom: 15px;
+              font-weight: 300;
+              img {
+                border: 2px solid #FFF;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+              }
+            }
+
+            .messageContent {
+              max-width: 80%;
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+                img {
+                  width: 50%;
+                }
+
+                p {
+                  background: #FFF;
+                  padding: 10px;
+                  border-radius: 0px 10px 10px 10px;
+                  max-width: max-content;
+                }
+            }
+            &.owner {
+              flex-direction: row-reverse;
+
+              .messageContent {
+                align-items: flex-end;
+              p {
+                background: red;
+                border-radius: 10px 0px 10px 10px;
+                color: #FFF;
+              }
+            }
+            }
+          }
         }
 
         .input {
