@@ -12,6 +12,26 @@ code {
     monospace;
 }
 
+@mixin mobile {
+  @media screen and (max-width: 480px){
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media screen and (max-width: 1200px) {
+    @content;
+  }
+}
+
+$darkcolor: '#999';
+
 .formContainer {
   background-color: red;
   width: 100vw;
@@ -28,6 +48,8 @@ code {
 
     .logo {
       color: #5d5b8b;
+      font-weight: bold;
+      font-size: 24px;
     }
 
     .title {
@@ -43,10 +65,10 @@ code {
         padding: 15px;
         border: none;
         width: 250px;
-        border-bottom: 1px solid #999;
+        border-bottom: 1px solid $darkcolor;
         
         &::placeholder {
-          color: #999; 
+          color: $darkcolor; 
          }
       }
       button {
@@ -61,7 +83,7 @@ code {
       label {
         display: flex;
         align-items: center;
-        color: #999;
+        color: $darkcolor;
         font-size: 12px;
         span {
           margin-left: 15px;
@@ -70,7 +92,7 @@ code {
     }
     p {
       margin-top: 10px;
-      color: #999;
+      color: $darkcolor;
       font-size: 12px;
       text-align: center;
     }
@@ -90,6 +112,9 @@ code {
       height: 80vh;
       display: flex;
       overflow: hidden;
+      @include tablet {
+        width: 90vw;
+      }
 
       .sidebar{
         flex: 1;
@@ -103,9 +128,13 @@ code {
           height: 50px;
           justify-content: space-between;
           color: #FFF;
+          position: relative;
 
           .logo {
             font-weight: bold;
+            @include tablet {
+              display: none;
+            }
           }
 
           .user {
@@ -127,6 +156,12 @@ code {
               font-size: 10px;
               border: none;
               cursor: pointer;
+              max-height: 25px;
+              @include tablet {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+              }
             }
             button:hover {
               opacity: 0.8;
@@ -146,7 +181,7 @@ code {
               outline: none;
 
               &::placeholder {
-                color: #999;
+                color: $darkcolor;
               }
             }
           }
@@ -181,7 +216,9 @@ code {
             }
 
             p{
-              color: #999; font-weight: 100; font-size: 12px;
+              color: $darkcolor; 
+              font-weight: 100; 
+              font-size: 12px;
             }
           }
           }
