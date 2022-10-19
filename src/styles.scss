@@ -221,6 +221,35 @@ code {
           height: 50px;
           background-color: #FFF;
           padding: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          input {
+            width: 100%;
+            border: none;
+            outline: none;
+            color: #333;
+            font-size: 1em;
+          }
+
+          .send {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+          .input-icon {
+            height: 24px;
+            width: 24px;
+          }
+
+          button {
+            border: none;
+            padding: 5px;
+            background: red;
+            color: #FFF;
+          }
+        }
         }
       }
     }
