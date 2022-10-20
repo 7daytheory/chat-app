@@ -4,10 +4,16 @@ import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage, db} from '../../firebase';
 import {ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore"; 
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
+
+    //form error/success states
     const [ error, setError ] = useState(false);
     const [ success, setSuccess ] = useState(false);
+
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {   
         e.preventDefault();
         
@@ -54,6 +60,7 @@ uploadTask.on('state_changed',
       await setDoc(doc('db', "userChats", res.user.uid), {
         //Upload user chats(empty for now)
       })
+      navigate("/") //uses react-router-dom to navigates to home page
     })
     }
     ); 
