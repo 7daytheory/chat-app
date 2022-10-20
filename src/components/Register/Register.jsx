@@ -60,7 +60,7 @@ uploadTask.on('state_changed',
       await setDoc(doc('db', "userChats", res.user.uid), {
         //Upload user chats(empty for now)
       })
-      navigate("/") //uses react-router-dom to navigates to home page
+      navigate("/login") //uses react-router-dom to navigates to login page
     })
     }
     ); 

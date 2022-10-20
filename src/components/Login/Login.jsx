@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../firebase';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
-    const [error, setError] = useState(false); 
+    const [error, setError] = useState(false);
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {   
         e.preventDefault();
         //Instead of useState you can get the values like this
@@ -12,7 +14,8 @@ function Login() {
         const password = e.target[1].value;
         
         try {
-        await signInWithEmailAndPassword(auth, email, password)
+        await signInWithEmailAndPassword(auth, email, password);
+        navigate("/")
         } catch(err) {
         setError(true);
         console.log(err);
