@@ -53,10 +53,10 @@ uploadTask.on('state_changed',
         photoURL: downloadURL
       });
 
-      navigate("/login") //uses react-router-dom to navigates to login page
-
       //Uploads chat info to firebase db - different chats
-      await setDoc(doc('db', "userChats", res.user.uid), {})
+      await setDoc(doc(db, "userChats", res.user.uid), {})
+
+      navigate("/login") //uses react-router-dom to navigates to login page
       
     })
     }

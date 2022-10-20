@@ -29,7 +29,7 @@ const Search = () => {
 }
 
   const handleKey = (e) => {
-    e.code === "Enter" && handleSearch(); //When user click enter it triggers handleSearch
+    e.code === "Enter" && handleSearch(); //If user clicks Enter it will trigger search
   }
 
   const handleSetup = async () => {
