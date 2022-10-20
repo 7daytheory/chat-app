@@ -18,7 +18,7 @@ function Register() {
         e.preventDefault();
         
         //Instead of useState you can get the values like this
-        const username = e.target[0].value;
+        const displayName = e.target[0].value;
         const email = e.target[1].value;
         const password = e.target[2].value;
         const file = e.target[3].files[0];
@@ -26,7 +26,7 @@ function Register() {
         try{
         const res = await createUserWithEmailAndPassword(auth, email, password)
 
-        const storageRef = ref(storage, username + "avatar");
+        const storageRef = ref(storage, displayName);
 
         const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -34,9 +34,6 @@ uploadTask.on('state_changed',
   (snapshot) => {
     setError(false);
     setSuccess(true);
-    e.target.value[0] = '';
-    e.target.value[1] = '';
-    e.target.value[2] = '';
   }, 
   (error) => {
     setError(true);
@@ -45,22 +42,22 @@ uploadTask.on('state_changed',
   () => {
     getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
       await updateProfile(res.user, {
-        username,
+        displayName,
         photoURL: downloadURL
       })
       //Uploads user info to firebase db - different users
       await setDoc(doc(db, "users", res.user.uid), {
         uid: res.user.uid,
-        username,
+        displayName,
         email,
         photoURL: downloadURL
       });
 
-      //Uploads chat info to firebase db - different chats
-      await setDoc(doc('db', "userChats", res.user.uid), {
-        //Upload user chats(empty for now)
-      })
       navigate("/login") //uses react-router-dom to navigates to login page
+
+      //Uploads chat info to firebase db - different chats
+      await setDoc(doc('db', "userChats", res.user.uid), {})
+      
     })
     }
     ); 
