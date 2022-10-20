@@ -1,19 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from '../../firebase';
 
 const Search = () => {
+
+  const [username, setUsername] = useState("");
+  const [user, setUser] = useState(null);
+  const [err, setErr] = useState(false);
+  
+  const handleSearch = async () => {
+    const q = query(
+      collection(db, "users"), 
+    where("displayName", "==", username
+    ));
+
+    try{
+    const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+   setUser(doc.data())
+  });
+  } catch {
+    setErr(true);
+  }
+}
+
+  const handleKey = (e) => {
+    e.code === "Enter" && handleSearch(); //When user click enter it triggers handleSearch
+  }
+
   return (
     <div className="search">
       <div className="searchForm">
-        <input type="text" placeholder="Search for user"/>
+        <input type="text" 
+        placeholder="Search for user" 
+        onKeyDown={handleKey} 
+        onChange={e=>setUsername(e.target.value)}/>
       </div>
-
-      <div className="userChat">
-        <img src="https://images.pexels.com/photos/13866617/pexels-photo-13866617.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="avatar"/>
+    {err && <span>User not found</span>}
+      {user && <div className="userChat">
+        <img src={user.photoURL} alt={user.displayName}/>
         <div className="userChatInfo">
-          <span>Stacey</span>
-          <p>Message from Stacey</p>
+          <span>{user.displayName}</span>
         </div>
-      </div>
+      </div>}
     </div>
   )
 }
