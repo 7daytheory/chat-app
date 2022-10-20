@@ -70,6 +70,9 @@ const Search = () => {
     } catch(err) {
       console.log(err)
     }
+
+    setUser(null);
+    setUsername("");
   }
 
   return (
@@ -78,7 +81,9 @@ const Search = () => {
         <input type="text" 
         placeholder="Search for user" 
         onKeyDown={handleKey} 
-        onChange={e=>setUsername(e.target.value)}/>
+        onChange={e=>setUsername(e.target.value)}
+        value={username}
+        />
       </div>
       {err && <span style={{color: '#fff', fontSize:'12px'}}>User not found</span>}
       {user && <div className="userChat" onClick={handleSetup}>
