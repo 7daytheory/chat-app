@@ -1,29 +1,41 @@
-import React from 'react'
+import { doc, onSnapshot } from 'firebase/firestore'; //Update content whenever db changes - great feature
+import React, { useContext, useEffect, useState } from 'react'
+import { db } from '../../firebase';
+import { AuthContext } from '../context/AuthContext';
 
 const Chats = () => {
+
+  const [chats, setChats] = useState([]);
+
+  const {currentUser} = useContext(AuthContext);
+
+  useEffect(() => {
+    const getChats = () => {
+    const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
+    setChats(doc.data());
+  });
+
+  return () => {
+    unsub();
+  }
+}
+
+currentUser.uid && getChats();
+ }, [currentUser.uid])
+
+ console.log(Object.entries(chats));
+
   return (
     <div className="chats">
-      <div className="userChat">
-        <img src="https://images.pexels.com/photos/13866617/pexels-photo-13866617.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="avatar"/>
-        <div className="userChatInfo">
-          <span>Stacey</span>
-          <p>Message from Stacey</p>
-        </div>
+    {Object.entries(chats)?.map((chat) => {
+      <div className="userChat" key={chat[0]}>
+      <img src={chat[1].userInfo?.photoURL} alt="avatar"/>
+      <div className="userChatInfo">
+        <span>{chat[1].userInfo.displayName}</span>
+        <p>{chat[1].userInfo.lastMessage?.text}</p>
       </div>
-      <div className="userChat">
-        <img src="https://images.pexels.com/photos/13866617/pexels-photo-13866617.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="avatar"/>
-        <div className="userChatInfo">
-          <span>Stacey</span>
-          <p>Message from Stacey</p>
-        </div>
-      </div>
-      <div className="userChat">
-        <img src="https://images.pexels.com/photos/13866617/pexels-photo-13866617.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="avatar"/>
-        <div className="userChatInfo">
-          <span>Stacey</span>
-          <p>Message from Stacey</p>
-        </div>
-      </div>
+    </div>
+    })}
     </div>
   )
 }

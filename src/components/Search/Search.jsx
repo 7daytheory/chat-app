@@ -34,8 +34,8 @@ const Search = () => {
 
   const handleSetup = async () => {
     //check if a chat exists, if not create new chat
-    const combineId = currentUser.uid > user.uid 
-    ? currentUser.uid + user.id 
+    const combineId = currentUser.uid > user.uid
+    ? currentUser.uid + user.uid 
     : user.uid + currentUser.uid;
 
     try {
