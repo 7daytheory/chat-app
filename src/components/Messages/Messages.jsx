@@ -17,13 +17,14 @@ const Messages = () => {
     return() => {
       unSub()
     }
-  })
+  }, [data.chatId])
 
   return (
     <div className="messages">
-      {messages?.map(message => {
-        <Message key={message.id}/>
-      })}
+      {messages.map((m) => { 
+        return (
+        <Message message={m} key={m.id} />
+      )})}
     </div>
   )
 }
