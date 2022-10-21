@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { collection, query, where, getDoc, setDoc, doc, updateDoc, serverTimestamp, getDocs } from "firebase/firestore";
+import { collection, query, where, getDoc, setDoc, doc, updateDoc, getDocs, serverTimestamp } from "firebase/firestore";
 import { db } from '../../firebase';
 import { AuthContext } from '../context/AuthContext';
 
@@ -42,34 +42,30 @@ const Search = () => {
     const res = await getDoc(doc(db, "chats", combineId))
 
     //exists() is a firebase method
-    if(!res.exists()) {
-    //create a chat in chats collections
-    await setDoc(doc(db, "chats", combineId), { messages: []}); //create doc with empty array for messages
+    if (!res.exists()) {
+      //create a chat have not been created in chats collection
+      await setDoc(doc(db, "chats", combineId), { messages: [] });
 
+      //create user chats
+      await updateDoc(doc(db, "userChats", currentUser.uid), {
+        [combineId + ".userInfo"]: {
+          uid: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        },
+        [combineId + ".date"]: serverTimestamp(),
+      });
 
-    // Update user chats
-    await updateDoc(doc(db, "userChats", currentUser.uid),{
-      [combineId+".userInfo"]: {
-        uid: user.uid,
-        displayName: user.displayName,
-        photoURL: user.photoURL
-      },
-      [combineId+".date"] : serverTimestamp()
-    });
-
-         // Update user chats
-         await updateDoc(doc(db, "userChats", user.uid),{
-          [combineId+".userInfo"]: {
-            uid: currentUser.uid,
-            displayName: currentUser.displayName,
-            photoURL: currentUser.photoURL
-          },
-          [combineId + ".date"] : serverTimestamp()
-        });
+      await updateDoc(doc(db, "userChats", user.uid), {
+        [combineId + ".userInfo"]: {
+          uid: currentUser.uid,
+          displayName: currentUser.displayName,
+          photoURL: currentUser.photoURL,
+        },
+        [combineId + ".date"]: serverTimestamp(),
+      });
     }
-    } catch(err) {
-      console.log(err)
-    }
+  } catch (err) {}
 
     setUser(null);
     setUsername("");
