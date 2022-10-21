@@ -3,7 +3,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { ChatContext } from '../context/ChatContext';
 import { AuthContext } from '../context/AuthContext';
-import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
 import { db, storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
@@ -40,7 +40,7 @@ const Input = () => {
                   id: uuid(),
                   text,
                   senderId: currentUser.uid,
-                  date: Timestamp.now(),
+                  date: Timestamp.now(), //Can't use serverTimestamp in arrayUnion
                   img: downloadURL
                 }) 
               })
@@ -54,10 +54,24 @@ const Input = () => {
                   id: uuid(),
                   text,
                   senderId: currentUser.uid,
-                  date: Timestamp.now(),
+                  date: Timestamp.now(), //Can't use serverTimestamp in arrayUnion
                 }) 
               })
           }
+
+          await updateDoc(doc(db, "userChats", currentUser.uid), {
+            [data.chatId + ".lastMessage"]: {
+              text
+            },
+            [data.chatId+".date"]: serverTimestamp(),
+          })
+
+          await updateDoc(doc(db, "userChats", data.user.uid), {
+            [data.chatId + ".lastMessage"]: {
+              text
+            },
+            [data.chatId+".date"]: serverTimestamp(),
+          })
 
           setText("");
           setImg(null);

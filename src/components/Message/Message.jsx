@@ -1,16 +1,25 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext';
+import { ChatContext } from '../context/ChatContext';
 
-const Message = () => {
+const Message = ({message}) => {
+  console.log(message);
+
+  // const {currentUser} = useContext(AuthContext);
+  // const {data} = useContext(ChatContext);
   return (
     <div className="message owner">
-      <div className="messageInfo">
-      <img src="https://images.pexels.com/photos/13866617/pexels-photo-13866617.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="avatar" />
+      {/* <div className="messageInfo">
+      <img 
+      src={"https://images.pexels.com/photos/13866617/pexels-photo-13866617.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" }
+      alt="avatar" 
+      />
       <span>just now</span>
       </div>
       <div className="messageContent">
       <p>Hello</p>
       <img src="https://images.pexels.com/photos/13866617/pexels-photo-13866617.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Send Error" />
-      </div>
+      </div> */}
     </div>
   )
 }
