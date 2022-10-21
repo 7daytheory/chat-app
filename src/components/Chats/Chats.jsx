@@ -34,6 +34,7 @@ currentUser.uid && getChats();
   return (
     <div className="chats">
     {Object.entries(chats)?.map((chat) => {
+      return (
       <div className="userChat" key={chat[0]} onClick={handleSelect(chat[1].userInfo)}>
       <img src={chat[1].userInfo?.photoURL} alt="avatar"/>
       <div className="userChatInfo">
@@ -41,6 +42,7 @@ currentUser.uid && getChats();
         <p>{chat[1].userInfo.lastMessage?.text}</p>
       </div>
     </div>
+      )
     })}
     </div>
   )
