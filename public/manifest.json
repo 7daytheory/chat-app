@@ -1,5 +1,5 @@
 {
-  "short_name": "Chatter",
+  "short_name": "Chattr",
   "name": "Chat application",
   "icons": [
     {
@@ -18,7 +18,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "./chat-app/",
+  "start_url": "index.html",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
